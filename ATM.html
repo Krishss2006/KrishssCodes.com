@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Code Blocks with Syntax Highlighting and Copy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Custom CSS for black theme */
+
+    body {
+      background-color: #212121;
+      color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+/* Custom CSS for fixed navbar */
+    .navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    }
+
+    .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    }
+
+    .navbar li {
+    margin-right: 20px;
+    }
+
+
+    .navbar a {
+      position: relative;
+      color: #fff;
+      text-decoration: none;
+      padding-bottom: 4px;
+    }
+    
+    .navbar a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background-color: #fff;
+      transition: width 0.3s ease-in-out;
+      transform: translateX(-50%);
+    }
+    
+    .navbar a:hover::after {
+      width: 100%;
+      transition: width 0.3s ease-in-out;
+    }
+    pre {
+      background-color: #212121;
+      color: #f5f5f5;
+      font-size: 5px;
+      padding: 10px;
+      border-radius: 5px;
+      overflow: auto;
+    }
+
+    div.Codes{
+      font-size: 70%;
+    }
+    .Heading3{
+      text-align: center;
+    }
+    
+
+    .no-right-click::after {
+      content: "Right-click disabled";
+      display: block;
+      color: #fff;
+      background-color: red;
+      padding: 10px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    /* Optional CSS to style the copy buttons */
+    button.copy {
+      background-color: #212121;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.copy.copied {
+      background-color: #2196F3;
+      /* Blue */
+    }
+
+    button.copy::before {
+      content: "\1F4CB";
+      /* Unicode character for copy icon */
+      margin-right: 5px;
+    }
+
+
+#scrollTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#scrollTopBtn:hover {
+  background-color: #555;
+}
+
+#scrollTopBtn.visible {
+  opacity: 1;
+}
+
+
+
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-family: monospace;
+}
+
+.footer-content {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.footer-content::before,
+.footer-content::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: #fff;
+  margin: 10px 0;
+}
+
+.footer-content::before {
+  width: 50px;
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.footer-content::after {
+  width: 50px;
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+  </style>
+</head>
+
+<body>
+<nav class="navbar">
+  <ul id="navbarItems">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="#section2">Posts</a></li>
+    <li><a href="#section3">Contact Us</a></li>
+  </ul>
+</nav>
+<br>
+<br>
+<br> 
+<h1 >ATM Machine Simulations Python Project</h1>
+<p >This project is a simulation of an ATM machine implemented<br>
+   in Python using MySQL as the database.</p>
+
+<!--Python Codes-->
+
+
+<div class="Codes">
+  <!--Table Creation-->
+  <pre >
+    <h3 class="Heading3">Table Creation</h3>
+    <code class="language-python">
+        -----------------------------------------------
+        -- Wellcome to ATM_Simulation_Python_Project --
+             --  Based on MYSQL Database --
+                   ---------------
+'''
+
+# Program to Create Records Tables, Deleted Records Tables and Transaction Tables.
+import mysql.connector as sql
+conn = sql.connect(host='localhost',
+user='root',
+password='M@ihunkri$hn@06',
+database='ATM_Machine')
+
+if conn.is_connected():
+print("Sucessfully Connected")
+
+obj=conn.cursor()
+
+# Creating Records Table
+query="CREATE TABLE RECORDS( ACCONT_NO  INT(4) primary key,NAME VARCHAR(40),Phone_number BIGINT(10),ADDRESS VARCHAR(60),PIN INT(4),BALANCE INT default(0))"
+obj.execute(query)
+print("Records Table Sucessfully created")
+
+#Creating Deleted Records Table
+query="CREATE TABLE DELETED_RECORDS( ACCONT_NO  INT(4) primary key,NAME VARCHAR(40),Phone_number BIGINT(10),ADDRESS VARCHAR(60),Withdrawl_Amt INT default(0),Reason VARCHAR(45),Date_of_Acc_Del date)"
+obj.execute(query)
+print("Deleted Records Table Sucessfully created")
+
+#Creating Transaction Table
+query="CREATE TABLE TRANSACTIONS(ACCONT_NO INT(4),Name VARCHAR(45),Transaction_Type VARCHAR(45),Transaction_Amt INT(10),Balance INT(10),Date_of_trnsctn date, Time time)"
+obj.execute(query)
+print("Transaction Table Sucessfulluy created")
+
+print("All Tables Has Been Created Sucessfully")
+
+    </code>
+    <button class="copy" onclick="copyCode(this)">Copy</button>
+  </pre>
+
+<!--Main Code-->
+  <pre>
+    <h3 class="Heading3" >Main Code</h3>
+    <code class="language-python">
+      '''       
+                     ------------------------------------------------
+                      -- Welcome to ATM_Simulation_Python_Project --
+                              --  Based on MYSQL Database --
+                                    ---------------
+'''
+
+import random 
+from time import sleep
+from mysql.connector import*
+import sys
+
+# Connecting mysql with python
+conn = connect(host = 'localhost',
+            user = 'root', 
+            password='M@ihunkri$hn@06', 
+            database='ATM_Machine')
+obj = conn.cursor()
+
+def home(): # Home
+        print('''
+               __Home__
+
+    1. Create an account
+    2. Account log in
+    3. Delete an existing account
+    4. Help
+    5. Exit
+    ''')
+        
+        try:
+            ch = input("Choose an option: ")
+            if ch not in ["1", "2", "3", "4", "5"]:
+                print("Invalid choice.")
+                home()
+                
+            if ch == "1":
+                account_creation()
+            elif ch == "2":
+                login()
+            elif ch == "3":
+                del_acc()
+            elif ch == "4":
+                help_me()
+            elif ch == "5":
+                exit_program() 
+        except ValueError:
+            print("\n \t Invalid choice.")
+            print("\t Choose the valid choice again")
+            home()
+
+def exit_program(): # Exit
+    confirmation = input("Are you sure you want to exit? (y/n): ")
+    if confirmation.lower() == "y":
+        print("Exiting...")
+        sleep(1)
+        print("\t\n      ___Thank you for visiting.___\n")
+        obj.close()
+        sys.exit()
+    else:
+        home()  
+
+def account_creation(): #Creating account
+    print("Create an account")
+    print("To go back press '0'")
+    while True:
+        name = input("Enter your name: ")
+        if name == '0':
+            print("Going back...")
+            sleep(1)
+            home()
+
+        address = input("Enter your address: ")
+        if name == '' or address == '':
+                print(f"Name {name} or Address {address} can't be empty. Please try again.")
+        else:
+            phone = veryfying_phone_no()
+            PIN = check_PIN()
+            initial_amt = initial_amount()
+            acc_no = random_id()
+            data = acc_no,name.title(),phone,address.title(),PIN,initial_amt
+            sql = "INSERT into RECORDS values(%s,%s,%s,%s,%s,%s)"
+            obj.execute(sql,data)
+            conn.commit()
+            print("\nAccount created successfully.")
+            obj.execute("SELECT * from RECORDS where ACCONT_NO={}".format(acc_no))
+            details = obj.fetchone()
+            print(f'''
+        __Account Details:__\n
+    Account number : {details[0]}
+    Name: {details[1]}
+    Address : {details[3]}
+    Phone number : {details[2]}
+    PIN : {details[4]}
+    Balance : ${details[5]:,}
+''')
+            enter = input("Press 'Enter' to go back")
+            home()
+
+def veryfying_phone_no(): #Verifying phone number
+    while True:
+        phone_no = input("Enter your phone number: ")
+        if len(phone_no) == 10:
+            return int(phone_no)   
+        else:
+            print("Invalid phone number")
+            
+def check_PIN(): #Checking PIN
+    PIN = str(input("Enter your 4 digit PIN: "))
+    if len(PIN) == 4 and PIN.isdigit():
+        return int(PIN)  
+    else:
+        print("Invalid PIN")
+        return check_PIN()
+
+def random_id(): #Random id generator
+    while True:
+        acc_id = random.randint(1000, 9999)
+        obj.execute("SELECT COUNT(*) FROM RECORDS WHERE Accont_no = {}".format(acc_id))
+        count = obj.fetchone()[0]
+        obj.execute("SELECT COUNT(*) from DELETED_RECORDS where ACCONT_NO = {}".format(acc_id))
+        count += obj.fetchone()[0]
+        if count == 0:
+            return acc_id
+
+def initial_amount():  #Deposition of initial amount
+    initial_amt = int(input("Enter the initial amount to be deposited(min $500): "))
+    if initial_amt < 500:
+        print("Insufficient initial deposit. Minimum deposit is $500.")
+        return initial_amount()
+    else:
+        return initial_amt
+    
+def login(): # Login seection
+    print("\n\t__Login__")
+    print("\nTo go back press 0")
+    acc_no = int(input("Enter your account number: "))
+    if acc_no == 0:
+        print("Going back...")
+        sleep(1)
+        home()
+
+    obj.execute('SELECT Name, PIN from RECORDS where ACCONT_NO = {}'.format(acc_no))
+    details = obj.fetchone()
+    if not details:
+        print("Account Not Found.")
+        sleep(1)
+        login()
+    else:
+        PIN = int(input("Enter the PIN: "))
+        if PIN == details[1]:
+            print("Login successful.")
+            text = f"\n\t_____Welcome, {details[0].split()[0]}______"
+            print(f"{text}")
+            account_details(acc_no)
+        else:
+            print("Invalid PIN")
+            login()
+    
+def account_details(acc_no): #Account details
+    print(''' 
+    1. Balance Enquiry
+    2. Account details
+    3. Deposit cash
+    4. Withdraw amount
+    5. Modify account details
+    6. Transaction history 
+          ''')
+    
+    print("Log in")
+    print("To go back press '0'")
+    ch = input("Enter your choice(1-6): ")
+    if ch == '0':
+        print("Going back...")
+        sleep(1)
+        home()
+
+    if ch not in ['1','2','3','4','5','6']:
+        print("Invalid Choice")
+        account_details(acc_no)
+    elif ch == '1':
+       balance_enquiry(acc_no)
+    elif ch == '2':
+        while True:
+            try:
+                PIN = int(input("Enter the PIN: "))
+                obj.execute("SELECT PIN from RECORDS WHERE ACCONT_NO = {}".format(acc_no))
+                details = obj.fetchone()
+                if PIN == details[0]:
+                    print("Account details")
+                    obj.execute('SELECT * from RECORDS where ACCONT_NO = {}'.format(acc_no))
+                    details = obj.fetchone()
+                    print(f'''\n
+                       __Account Details:__\n
+                    Account number : {details[0]}
+                    Name: {details[1]}
+                    Address : {details[3]}
+                    Phone number : {details[2]}
+                    PIN : {details[4]}
+                    Balance : ${details[5]:,}\n
+                    ''')
+                    enter = input("Press 'Enter' to go back")
+                    account_details(acc_no)      
+                else:
+                    print("Invalid PIN")
+                
+            except ValueError:
+                print("Invalid PIN")
+
+    elif ch == '3':
+        deposition(acc_no)
+
+    elif ch == '4':
+        withdrawal(acc_no)
+        
+    elif ch == "5":
+        modify_acc(acc_no)
+         
+    elif ch == '6':
+        transaction_history(acc_no)
+
+def balance_enquiry(acc_no): #Balance Enquiry
+    obj.execute('SELECT PIN, Balance from RECORDS where ACCONT_NO = {}'.format(acc_no))
+    PIN = input("Enter the PIN: ")
+    details = obj.fetchone()
+    if int(PIN) == details[0]:
+        print("\nBalance Enquiry")
+        balance = details[1]
+        print(f"Current Balance: ${balance:,}\n")
+        enter = input("Press 'Enter' to go back")
+        account_details(acc_no)   
+    elif PIN == "":
+        print("Please enter the PIN")
+        balance_enquiry(acc_no)   
+    else:
+        print("Invalid PIN")
+        balance_enquiry(acc_no)
+
+def deposition(acc_no): # Deposition of cash
+    print("\nDeposit")
+    try:
+         PIN = int(input("Enter the PIN: "))
+         obj.execute('SELECT * from RECORDS where ACCONT_NO = {}'.format(acc_no))
+         details = obj.fetchone()
+         if PIN == details[4]:
+             amt = int(input("Enter the amount to be deposited: "))
+             if amt > 0 and amt <= 1000000:
+                 if details[5] + amt > 999999999:
+                     print("Sorry but, you cannot have balance more than $999,999,999")
+                     deposition(acc_no)
+                 else:
+                     obj.execute("update RECORDS set BALANCE = BALANCE + {} where ACCONT_NO = {}".format(amt,acc_no))
+                     conn.commit()
+                     print("\nCash deposited successfully")
+                     obj.execute('SELECT * from RECORDS where ACCONT_NO = {}'.format(acc_no))
+                     details = obj.fetchone()
+                     obj.execute("INSERT into TRANSACTIONS values({},'{}','{}',{},{},CURDATE(),CURTIME())".format(acc_no,details[1],'Deposit',amt,details[5]),)
+                     conn.commit()
+                     print(f"Deposited amount: ${amt:,}")
+                     print(f"Current Balance: ${details[5]:,}\n")
+                     enter = input("Press 'Enter' to go back")
+                     account_details(acc_no)
+             elif amt < 0:
+                 print("Invalid amount")
+                 deposition(acc_no)
+             elif amt == 0:
+                 print("Cash can not be '0'")
+                 deposition(acc_no)
+             elif amt > 1000000:
+                 print("Sorry!, You cannot deposite more than 1 Million.")
+                 deposition(acc_no)
+         elif str(PIN) == '':
+             print("Please enter PIN")
+             deposition(acc_no)
+         else:
+             print("Invalid pin")
+             deposition(acc_no)
+             
+    except ValueError:
+        print("Invalid pin")
+        deposition(acc_no)
+
+
+def withdrawal(acc_no):   # Withdrawing cash
+    print("Withdrawal")
+    try:
+         PIN = int(input("Enter the PIN: "))
+         obj.execute('SELECT PIN, Balance from RECORDS where ACCONT_NO = {}'.format(acc_no))
+         details = obj.fetchone()
+         if PIN == details[0]:
+             amt = int(input("Enter the amount to be withdrawn: "))
+             if amt > 0 and amt <= details[1]:
+                 obj.execute("update RECORDS set BALANCE = BALANCE - {} where ACCONT_NO = {}".format(amt,acc_no))
+                 conn.commit()
+                 print("\nCash withdrawn successfully")
+                 obj.execute('SELECT * from RECORDS where ACCONT_NO = {}'.format(acc_no))
+                 details = obj.fetchone()
+                 obj.execute("INSERT into TRANSACTIONS values({},'{}','{}',{},{},CURDATE(),CURTIME())".format(acc_no,details[1],'Withdrawal',amt,details[5]))
+                 conn.commit()
+                 print(f"Withdrawn amount: ${amt:,}")
+                 print(f"Current Balance: ${details[5]:,}\n")
+                 enter = input("Press 'Enter' to go back")
+                 account_details(acc_no)
+             elif amt > details[1]:
+                     print("Insuffiecient Balanace")                     
+             elif amt < 0:
+                 print("Invalid amount")
+                 withdrawal(acc_no)
+             elif amt == 0:
+                 print("Cash can not be '0'")
+                 withdrawal(acc_no)
+             elif amt > 100000:
+                 print("Sorry!, You cannot withdraw more than 100 Thousands Dollar.")
+                 withdrawal(acc_no)
+         elif str(PIN) == '':
+             print("Please enter the PIN")
+             withdrawal(acc_no)          
+         else:
+            print("Invalid PIN")
+            withdrawal(acc_no)
+               
+    except ValueError:
+          print("Invalid PIN")
+          withdrawal(acc_no)
+
+def modify_acc(acc_no):     # Modifying Account
+    print("Modify account details")
+    try: 
+        PIN = int(input("Enter the PIN: "))
+        obj.execute('SELECT * from RECORDS where ACCONT_NO = {}'.format(acc_no))
+        details = obj.fetchone()
+        if PIN == details[4]:
+            print('''\n\t\t__Update your Info:__\n
+            1. Update Name
+            2. Update Address
+            3. Update Phone number
+            4. Update PIN
+            5. Done
+        ''')
+            while True:
+                ch = input("Enter your choice(1-5): ")
+                if ch == '1':
+                    new_name = input("Enter the new name: ")
+                    obj.execute("update RECORDS set NAME = '{}' where ACCONT_NO = {}".format(new_name.title(),acc_no))
+                    conn.commit()
+                    print("Name modified successfully")
+                elif ch == '2':
+                    new_address = input("Enter the new address: ")
+                    obj.execute("update RECORDS set ADDRESS = '{}' where ACCONT_NO = {}".format(new_address.title(),acc_no))
+                    conn.commit()
+                    print("Address modified successfully")
+                elif ch == '3':
+                    new_phone_number = input("Enter the new phone number: ")
+                    obj.execute("update RECORDS set PHONE_NUMBER = '{}' where ACCONT_NO = {}".format(new_phone_number,acc_no))
+                    conn.commit()
+                    print("Phone number modified successfully")
+                elif ch == "4":
+                    while True:
+                        try:
+                            PIN = int(input("Enter the old PIN: "))
+                            obj.execute('SELECT PIN from RECORDS where ACCONT_NO = {}'.format(acc_no))
+                            details = obj.fetchone()
+                            if PIN == details[0]:
+                                print("New PIN")
+                                new_PIN = check_PIN()
+                                obj.execute("update RECORDS set PIN = {} where ACCONT_NO = {}".format(new_PIN,acc_no))
+                                conn.commit()
+                                print("PIN modified successfully")
+                                break                           
+                            else:
+                                print("Invalid PIN")
+                                
+                        except ValueError:
+                            print("Invalid PIN")
+                        
+                elif ch == '5':
+                    account_details(acc_no)
+                else:
+                    print("Invalid choice")         
+        else:
+            print("Invalid PIN")
+            modify_acc(acc_no)
+            
+    except ValueError:
+            print("Invalid PIN")
+            modify_acc(acc_no)
+            
+def transaction_history(acc_no): #Transaction History
+    try:
+        PIN = int(input("Enter the PIN: "))
+        obj.execute("SELECT PIN from RECORDS WHERE ACCONT_NO = {}".format(acc_no))
+        details = obj.fetchone()
+        if PIN == details[0]:
+            obj.execute("SELECT * from TRANSACTIONS where ACCONT_NO = {} ORDER BY Date_of_trnsctn DESC, Time Desc".format(acc_no))
+            transactions = obj.fetchall()
+            if not transactions:
+                print("Transactions History")
+                print("\n\tNo transactions found\n ")
+                enter = input("Press 'Enter' to go back")
+                sleep(1)
+                account_details(acc_no)
+            else:
+                print('''\n\t\t\t\t\tTransaction History
++--------+-------------------+---------------------+---------------------+------------+-----------+                 
+| Acc No.| Transaction Type  | Transaction Amount  |       Balance       |    DOT     |   Time    |
++--------+-------------------+---------------------+---------------------+------------+-----------+''')
+                for transaction in transactions:    
+                    transaction_amt = f"{transaction[3]:,}"
+                    transaction_blnce = f"{transaction[4]:,}"       
+                    print(f'''| {transaction[0]:<7}| {transaction[2]:<18}| {transaction_amt:<20}| {transaction_blnce:<20}| {transaction[5]} | {transaction[6]} {'':<2}|''')
+                print("+--------+-------------------+---------------------+---------------------+------------+-----------+\n")
+                enter = input("Press 'Enter' to go back")
+                account_details(acc_no)
+        else:
+            print("Invalid PIN")
+            transaction_history(acc_no)
+            
+    except ValueError:
+        print("Invalid PIN")
+        transaction_history(acc_no)
+
+def del_acc():   # Deleting the account
+    print("Delete account")
+    print("To go home press '0'")
+    confirmation = input("Are you sure?(y/n): ")
+    if confirmation.lower() == 'y':
+        acc_no = int(input("Enter the account number: "))
+        
+        obj.execute('SELECT Accont_no, PIN from RECORDS where ACCONT_NO = {}'.format(acc_no))
+        details = obj.fetchone()
+
+        if not details:
+            print("Invalid account number")
+            del_acc()       
+        else:
+            while True:
+              try:
+                PIN = int(input("Enter the PIN: "))
+                if int(PIN) != details[1]:
+                    print("Invalid PIN")
+
+                else:
+                    print('''
+                    Account Found. Deleting account...
+                    Reason for deleting the account:
+                    1. Account Closure.
+                    2. Security Concerns
+                    3. Switching to another bank
+                    4. Other
+            ''')
+                    reason = input("Enter the reason number(1-4): ")
+                    if reason == "1":
+                        problem = "Account Closure"
+                    elif reason == "2":
+                        problem = "Security Concerns"
+                    elif reason == "3":
+                        problem = "Switching to another bank"
+                    elif reason == "4":
+                        problem = "Other"
+                    else:
+                        print("Invalid choice")
+                        del_acc()
+
+                    print("To delete this account type 'Yes, I want to delete my account'")
+                    print("and if not type 'No'")
+                    while True:
+                        last = input("--> ")
+                        if last.lower().strip() == "yes, i want to delete my account" or\
+                            last.lower().strip() == "yes i want to delete my account":
+                            obj.execute("SELECT Balance, Name from RECORDS where ACCONT_NO = {}".format(acc_no))
+                            details = obj.fetchone() 
+                            amt = details[0]
+                            obj.execute("UPDATE RECORDS set Balance = Balance - {} where ACCONT_NO = {}".format(amt,acc_no))
+                            conn.commit()
+                            obj.execute("INSERT into TRANSACTIONS values({},'{}','{}',{},{},CURDATE(), CURTIME())".format(acc_no,details[1],'Withdrawal',amt,details[0]))
+                            conn.commit()                         
+                            print("\nCash withdrawn successfully")
+                            print(f"Total cash withdrawn: ${amt:,}")
+                            sleep(1)
+                            obj.execute("SELECT * from RECORDS where ACCONT_NO = {}".format(acc_no))
+                            details = obj.fetchone()
+ 
+                            print(f'''
+                            Thank you for using our service {details[1]}. 
+                            We're sorry to see you go. Your account is being deleted.
+                            If you change your mind, you can recover your account 
+                            under 30 days by contacting to our support team.
+                            We appreciate your support and wish you the best.\n''' )
+                            obj.execute("INSERT into DELETED_RECORDS values({},'{}',{},'{}',{},'{}',CURDATE())".format(details[0],details[1],details[2],details[3],amt,problem,))
+                            conn.commit()                                                                             
+                            obj.execute("DELETE from RECORDS where ACCONT_NO = {}".format(acc_no))
+                            conn.commit()  
+                            for i in range(1,4):
+                                print(f"Account is being deleted.{'.'*i}",end='\r', flush=True)
+                                sleep(1)
+                            print('''\n
+                            Your account has been successfully deleted. 
+                            We're again sorry to see you go. If you have any
+                            further questions or need assistance, please don't 
+                            hesitate to reach out to our support team.
+                            Thank you for being a part of our community.
+                                ''')
+                            sleep(2)
+                            home()
+                        elif last.lower() == "no":
+                            print("Going home...")
+                            sleep(1)
+                            home()
+                        else:
+                            print("\nThe statement is invalid")
+                            print("Please type 'Yes, I want to delete my account' \n \
+and if not then simply type 'No'")
+                            sleep(1)
+
+              except ValueError:
+                     print("Invalid PIN")       
+
+        print("Going home...")
+        sleep(1)
+        home()
+    elif surity == '0' or surity.lower() == 'n':
+        print("Going home...")
+        sleep(1)
+        home()
+    else:
+        print("Invalid choice")
+        del_acc()
+        
+def help_me():  # Help Section 
+    print("Help")
+    print('''
+            Welcome to the ATM Help Section.
+        1. Instructions: Find information on how to use the ATM.
+        2. Troubleshooting: Get help with common errors or issues.
+        3. Frequently Asked Questions (FAQs): Find answers to common queries.
+        4. Contact Support: Get in touch with our customer support team.
+        5. Return to the main menu.
+    ''')
+
+    while True:
+        ch = input("Enter your choice(1-5): ") 
+        if ch =="1":
+            print("Instructions")
+            print("""
+        1. To create an account, select the 'Create an account' option and follow the prompt.
+        2. To withdraw money, select the 'Withdraw' option and follow the prompts.
+        3. To check your account balance, select the 'Account Details' option.
+        4. To modify your account details, select the 'Modify account details' option and follow the prompt.
+    """)
+            enter = input("Press 'Enter' to go back")
+            help_me()
+        elif ch == "2":
+            print("Troubleshooting")
+            print("""
+                  1. If your card is not being recognized, make sure it is inserted correctly.
+                  2. If you forgot your PIN, you can reset it by contacting our support team.
+""")
+            enter = input("Press 'Enter' to go back")
+            help_me()
+        elif ch == "3":
+                    print("\n")
+                    print("Here are some frequently asked questions and their answers:")
+                    print("\n")
+                    print("1. How can I change my PIN?")
+                    print("   To change your PIN, follow these steps:")
+                    print("   - Select the 'Modify account details' option from the main menu.")
+                    print("   - Enter your current PIN for verification.")
+                    print("   - Choose the 'PIN' option to change your PIN.")
+                    print("   - Enter your new 4-digit PIN when prompted.")
+                    print("   - Your PIN will be updated successfully.")
+                    print("\n")
+
+                    print("2. What should I do if my card is lost or stolen?")
+                    print("   If your card is lost or stolen, it is important to take immediate action to protect your account. Follow these steps:")
+                    print("   - Contact our customer service helpline at 9100000000 or 9200000000 as soon as possible to report the loss or theft.")
+                    print("   - Provide your account details and any relevant information about the incident.")
+                    print("   - Our customer service representative will assist you in blocking your card to prevent unauthorized access.")
+                    print("   - They will guide you through the process of issuing a new card and transferring your funds to the new card.")
+                    print("   - It is crucial to act quickly to minimize any potential unauthorized transactions on your account.")
+                    print("\n")
+                    
+                    print("If you have any further questions or concerns, please feel free to submit your query below:")
+                    submit_query = input("Do you want to submit a query? (y/n): ")
+                    if submit_query.lower() == "y":
+                            name = input("Enter your name: ").title()
+                            phone_number = input("Enter your phone number: ")
+                            while len(phone_number) != 10:
+                                phone_number = input("Enter your valid phone number: ")
+                                print("Invalid phone number. Please enter a valid 10-digit phone number.")
+                            print("Phone number verified.")
+                            query = input("Enter your query: ")
+                            
+                            # Saving the query in a file name 'queries.txt' 
+                            with open("queries.txt", "a") as file: 
+                                file.write("Name: " + name + "\n")
+                                file.write("Phone Number: " + phone_number + "\n")
+                                file.write("Query: " + query + "\n")
+                                file.write("\n")
+                            print("Thank you for submitting your query. We will get back to you soon!")
+                            sleep(2)
+                            help_me()
+                    else:      
+                        print("No query submitted.")
+                        sleep(1)
+                        help_me()
+                          
+        elif ch == "4":
+            print("\nContact Support:")
+            print("Customer Support Phone: 9100000000, 9200000000")
+            print("Customer Support Email: support@krishssbank.com")
+            enter = input("Press 'Enter' to go back")
+            help_me()  
+        elif ch == "5":         
+            print("\nReturning to the main menu...")
+            sleep(1)
+            home()
+        else:      
+            print("Invalid choice. Please select a number from 1 to 5.")
+            
+
+print("\n \n                      Welcome to                     ")
+print("                    Krishss A.T.M                         ")
+print("                    P.v.t, L.t.d                          ")
+print("               9100000000, 9200000000                     ")
+print("              __krishssbank@gmail.com__                   ")
+
+home()
+
+
+    </code>
+    <button class="copy" onclick="copyCode(this)">Copy</button>
+  </pre>
+<!--Ends-->
+</div>
+<button id="scrollTopBtn">Scroll to Top</button>
+
+
+<script>
+    
+</script>
+
+<footer>
+    <div class="footer-content"> 
+        All rights reserved &copy; Krishss Codes 
+    </div> 
+</footer>
+
+<!-- End of code -->
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
+  <script>
+    function copyCode(element) {
+      const code = element.previousElementSibling;
+      const range = document.createRange();
+      range.selectNode(code);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+
+      element.textContent = 'Copied';
+      element.classList.add('copied');
+
+      setTimeout(function () {
+        element.textContent = 'Copy';
+        element.classList.remove('copied');
+      }, 10000); // 10 seconds
+    }
+
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    
+    window.addEventListener('scroll', () => {
+      scrollTopBtn.classList.toggle('visible', window.scrollY > 100);
+    });
+    
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // window.addEventListener('contextmenu', function(e) {
+    //   e.preventDefault();
+    // });
+</script>
+
+<script>
+    function openNewWindow(event) {
+        event.preventDefault();
+        window.open(event.target.href, '_blank', 'width=800,height=600,top=100,left=100');
+    }
+</script>
+    
+
+
+
+</body>
+
+</html>
