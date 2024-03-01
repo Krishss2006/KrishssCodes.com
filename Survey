@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Survey</title>
+    <style>
+        body {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #000;
+            margin: 0;
+            color: black;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #welcome-container {
+            text-align: center;
+        }
+
+        #survey-container {
+            display: none;
+            width: 300px;
+            padding: 20px;
+            background-color: grey;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+ 	button{
+	background-color: #aaaaaa;
+	border: 2px solid cyan;
+	transition: 0.1s;
+	display: inline-block;
+            padding: 15px 30px;
+            font-size: 10px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: #fff;
+            border-radius: 20px; /* Make it round */
+            cursor: pointer;
+        }
+
+	button:hover{
+	background-color: blue;
+
+}
+        #button-2 {
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="welcome-container">
+    <h1 style="color: White;" >Welcome to the Survey</h1>
+    <button id="button-01" onclick="startSurvey()">Start Survey</button>
+</div>
+
+<div id="survey-container">
+    <h3>Kya app pagal hain?</h3>
+    <p>Click on yes button 🙂.</p>
+    <button id="button-1" onclick="yes()">Offcourse Yes! I am.</button>
+    <button id="button-2" onclick="gotMe()">Offcourse No!<br>Bet you! you can't get me</button>
+</div>
+
+<script>
+    function startSurvey() {
+        document.getElementById("welcome-container").style.display = "none";
+        document.getElementById("survey-container").style.display = "block";
+    }
+
+    function yes() {
+        alert("Yeah! Thank you for accepting.");
+        // Implement logic to close the window or perform any other actions
+    }
+
+    function gotMe() {
+        alert("You got me.");
+    }
+
+    function moveTo() {
+        var button2 = document.getElementById("button-2");
+        button2.style.position = "absolute";
+        button2.style.left = Math.floor(Math.random() * 300) + Math.floor(Math.random() * 90) + Math.floor(Math.random() * 65)  + 7+ "px";
+        button2.style.top = Math.floor(Math.random() * 500) + Math.floor(Math.random() * 70) + Math.floor(Math.random() * 45) +  8+ "px";
+    }
+
+    var button2 = document.getElementById("button-2");
+    button2.addEventListener("mouseenter", moveTo);
+</script>
+
+</body>
+</html>
